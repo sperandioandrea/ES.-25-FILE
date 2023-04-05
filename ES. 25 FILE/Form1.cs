@@ -48,6 +48,11 @@ namespace ES._25_FILE
             CreazioneFile(textBox1.Text, textBox2.Text);
         }
 
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
 
         //FUNZIONE DI RICERCA
@@ -78,12 +83,56 @@ namespace ES._25_FILE
 
 
 
-
         //FUNZIONE DI MODIFICA
-        public void Modifica()
+        public bool Modifica(string cerca, string nuovonome, string nuovoprezzo)
+        {
+            bool trova = false;
+
+            using (StreamReader sr = File.OpenText(esfile))
+            {
+                string a;
+                using (StreamWriter temporaneo = new StreamWriter("temporaneo.txt"))
+                {
+                    while((a = sr.ReadLine()) != null)
+                    {
+                        if (a.Contains(cerca) == false)
+                        {
+                            temporaneo.WriteLine(a);
+                        }
+                        if (a.Contains(cerca) == true)
+                        {
+                            trova = true;
+                            temporaneo.WriteLine(nuovonome + " " + nuovoprezzo + "€");
+                        }
+                    }
+
+                }
+            }
+            File.Delete(esfile);
+            File.Move("temporaneo.txt", esfile);
+            return trova;
+        }
+      
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Modifica(textBox4.Text, textBox5.Text, textBox7.Text);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
         //FUNZIONE DI CANCELLAZIONE
         public void Cancellazione()
@@ -91,6 +140,6 @@ namespace ES._25_FILE
 
         }
 
-       
+      
     }
 }

@@ -135,11 +135,41 @@ namespace ES._25_FILE
 
 
         //FUNZIONE DI CANCELLAZIONE
-        public void Cancellazione()
+        public bool Cancellazione(string x)
+        {
+            bool trova = false;
+            using (StreamReader sr = File.OpenText(esfile))
+            {
+                string a;
+                using (StreamWriter temporaneo = new StreamWriter("temporaneo.txt"))
+                {
+                    while((x = sr.ReadLine()) != null)
+                    {
+                        if (a.Contains(x) ==false)
+                        {
+                            temporaneo.WriteLine(a);
+                        }
+                    }
+
+                    if (a.Contains(x) == true)
+                    {
+                        trova = true;
+                    }
+
+                }
+            }
+            File.Delete(esfile);
+            File.Move("temporaneo.txt", esfile);
+            return trova;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Cancellazione(textBox6.Text);
+        }
+        private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
         }
-
-      
     }
 }

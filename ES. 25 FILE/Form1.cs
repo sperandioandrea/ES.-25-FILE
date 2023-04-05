@@ -47,5 +47,50 @@ namespace ES._25_FILE
         {
             CreazioneFile(textBox1.Text, textBox2.Text);
         }
+
+
+
+        //FUNZIONE DI RICERCA
+        public bool Ricerca(string nome)
+        {
+            bool parola = false;
+            using (StreamWriter sr = File.OpenText(esfile)) 
+            {
+                string cerca;
+                while ((cerca = sr.ReadLine()) != null) 
+                {
+                    if(cerca.Contains(nome) == false)
+                    {
+                        parola = true;
+                    }
+                }
+                return parola;
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Ricerca(textBox3.Text);
+        }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+        //FUNZIONE DI MODIFICA
+        public void Modifica()
+        {
+
+        }
+
+        //FUNZIONE DI CANCELLAZIONE
+        public void Cancellazione()
+        {
+
+        }
+
+       
     }
 }
